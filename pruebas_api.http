@@ -1,0 +1,23 @@
+### PASO 9: Simular envío de datos desde Arduino
+POST http://127.0.0.1:8000/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 450.5,
+    "kg_procesados": 3.72,
+    "kg_hora": 22.3,
+    "temperatura": 38.1,
+    "estado_motor": "ON",
+    "sesion_id": "SES-20241015-001"
+}
+
+###
+
+### PASO 10: Probar el endpoint GET último
+GET http://127.0.0.1:8000/api/lectura/ultimo
+
+###
+
+### PASO 11: Probar el endpoint de sesiones
+GET http://127.0.0.1:8000/api/lectura/sesion/SES-20241015-001

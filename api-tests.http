@@ -1,0 +1,196 @@
+### =====================================================
+### DESGRANADORA DE MAÍZ — Pruebas API
+### Extensión: REST Client (Huachao Mao) para VS Code
+### Uso: clic en "Send Request" sobre cada bloque
+### Servidor: php artisan serve debe estar corriendo
+### =====================================================
+
+@base = http://127.0.0.1:8000
+@sesion1 = SES-20241015-001
+@sesion2 = SES-20241015-002
+
+
+### ─── PRUEBA 1: Enviar lectura normal (simula el Arduino) ─────────────
+### Resultado esperado: 201 Created + {"ok":true}
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 450.5,
+    "kg_procesados": 3.72,
+    "kg_hora": 22.3,
+    "temperatura": 38.1,
+    "estado_motor": "ON",
+    "sesion_id": "{{sesion1}}"
+}
+
+
+### ─── PRUEBA 2: Ver la última lectura (la usa el dashboard JS) ────────
+### Resultado esperado: 200 OK + datos de la última lectura guardada
+
+GET {{base}}/api/lectura/ultimo
+Accept: application/json
+
+
+### ─── PRUEBA 3: Ver todas las lecturas de una sesión ──────────────────
+### Resultado esperado: 200 OK + array de lecturas + resumen
+
+GET {{base}}/api/lectura/sesion/{{sesion1}}
+Accept: application/json
+
+
+### ─── PRUEBA 4: Ver lista de sesiones (pantalla de Reportes) ──────────
+### Resultado esperado: 200 OK + lista de sesiones agrupadas
+
+GET {{base}}/api/sesiones
+Accept: application/json
+
+
+### ─── PRUEBA 5A: RPM alta → estado ALERTA ─────────────────────────────
+### Verificar: dashboard cambia badge a ROJO con texto "ALERTA"
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 850.0,
+    "kg_procesados": 1.5,
+    "kg_hora": 10.0,
+    "temperatura": 72.5,
+    "estado_motor": "ALERTA",
+    "sesion_id": "{{sesion1}}"
+}
+
+
+### ─── PRUEBA 5B: Motor apagado → fin de sesión ────────────────────────
+### Verificar: dashboard muestra "APAGADO" en gris, RPM en 0
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 0,
+    "kg_procesados": 5.80,
+    "kg_hora": 0,
+    "temperatura": 45.0,
+    "estado_motor": "OFF",
+    "sesion_id": "{{sesion1}}"
+}
+
+
+### ─── PRUEBA 5C: Nueva sesión (sesión 2) ──────────────────────────────
+### Verificar: en /reportes aparecen dos sesiones distintas
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 520.0,
+    "kg_procesados": 0.5,
+    "kg_hora": 30.0,
+    "temperatura": 35.0,
+    "estado_motor": "ON",
+    "sesion_id": "{{sesion2}}"
+}
+
+
+### ─── PRUEBA 6: JSON inválido → debe fallar con 422 ──────────────────
+### Verificar: Laravel rechaza datos incorrectos (validación funciona)
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": "no-es-numero",
+    "estado_motor": "ENCENDIDO"
+}
+
+
+### ─── PRUEBA 7: Sesión inexistente → debe devolver 404 ───────────────
+### Verificar: manejo de errores en el controlador
+
+GET {{base}}/api/lectura/sesion/SES-NOEXISTE-999
+Accept: application/json
+
+
+### ─── SIMULACIÓN: Enviar 5 lecturas seguidas (carga de datos) ────────
+### Ejecutar estas 5 una por una para llenar el dashboard con datos reales
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 380.0,
+    "kg_procesados": 0.80,
+    "kg_hora": 24.0,
+    "temperatura": 33.0,
+    "estado_motor": "ON",
+    "sesion_id": "{{sesion1}}"
+}
+
+###
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 410.0,
+    "kg_procesados": 1.60,
+    "kg_hora": 24.5,
+    "temperatura": 34.5,
+    "estado_motor": "ON",
+    "sesion_id": "{{sesion1}}"
+}
+
+###
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 445.0,
+    "kg_procesados": 2.50,
+    "kg_hora": 25.0,
+    "temperatura": 36.0,
+    "estado_motor": "ON",
+    "sesion_id": "{{sesion1}}"
+}
+
+###
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 460.0,
+    "kg_procesados": 3.40,
+    "kg_hora": 25.5,
+    "temperatura": 37.2,
+    "estado_motor": "ON",
+    "sesion_id": "{{sesion1}}"
+}
+
+###
+
+POST {{base}}/api/lectura
+Content-Type: application/json
+Accept: application/json
+
+{
+    "rpm": 455.0,
+    "kg_procesados": 4.20,
+    "kg_hora": 25.2,
+    "temperatura": 38.0,
+    "estado_motor": "ON",
+    "sesion_id": "{{sesion1}}"
+}
