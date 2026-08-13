@@ -97,8 +97,13 @@ class LecturaController extends Controller
         $lecturas = Lectura::deSesion($sesionId)
             ->orderBy('created_at')
             ->get([
-                'id', 'rpm', 'kg_procesados', 'kg_hora',
-                'temperatura', 'estado_motor', 'created_at',
+                'id',
+                'rpm',
+                'kg_procesados',
+                'kg_hora',
+                'temperatura',
+                'estado_motor',
+                'created_at',
             ]);
 
         return response()->json([
@@ -135,6 +140,44 @@ class LecturaController extends Controller
             'ok'      => true,
             'total'   => $sesiones->count(),
             'sesiones' => $sesiones,
+        ]);
+    }
+    public function estado(): \Illuminate\Http\JsonResponse
+    {
+        $ultima = \App\Models\Lectura::latest()->first();
+
+        if (! $ultima) {
+            return response()->json([
+                'estado'         => 'nunca',
+                'etiqueta'       => 'Sin datos aún',
+                'segundos'       => null,
+                'ultima_lectura' => null,
+                'color'          => 'secondary',
+            ]);
+        }
+
+        $segundos = now()->diffInSeconds($ultima->created_at);
+
+        if ($segundos < 10) {
+            $estado = 'online';
+            $etiqueta = 'En línea';
+            $color = 'success';
+        } elseif ($segundos < 60) {
+            $estado = 'advertencia';
+            $etiqueta = 'Señal débil';
+            $color = 'warning';
+        } else {
+            $estado = 'offline';
+            $etiqueta = 'Sin señal';
+            $color = 'danger';
+        }
+
+        return response()->json([
+            'estado'         => $estado,
+            'etiqueta'       => $etiqueta,
+            'segundos'       => $segundos,
+            'ultima_lectura' => $ultima->created_at->format('H:i:s'),
+            'color'          => $color,
         ]);
     }
 }

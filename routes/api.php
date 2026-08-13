@@ -17,7 +17,9 @@ Route::post('/lectura',                 [LecturaController::class, 'store']);
 Route::get('/lectura/ultimo',           [LecturaController::class, 'ultimo']);
 
 // Datos históricos de una sesión completa (reportes y gráficas históricas)
-Route::get('/lectura/sesion/{sesionId}',[LecturaController::class, 'porSesion']);
+Route::get('/lectura/sesion/{sesionId}', [LecturaController::class, 'porSesion']);
 
 // Lista de todas las sesiones (para la pantalla de Reportes)
 Route::get('/sesiones',                 [LecturaController::class, 'sesiones']);
+
+Route::get('/estado', [LecturaController::class, 'estado']);
