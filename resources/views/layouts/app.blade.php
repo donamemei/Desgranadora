@@ -281,6 +281,12 @@
                             <i class="bi bi-bell"></i> Alertas
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('ventas.index') }}"
+                            class="nav-link {{ request()->routeIs('ventas.*') ? 'active' : '' }}">
+                            <i class="bi bi-cart-check"></i> Ventas
+                        </a>
+                    </li>
                 </ul>
 
                 {{-- Información --}}

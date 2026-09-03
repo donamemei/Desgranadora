@@ -39,6 +39,11 @@ class Lote extends Model
         return $this->hasMany(Alerta::class);
     }
 
+    public function ventas(): HasMany
+    {
+        return $this->hasMany(Venta::class);
+    }
+
     public function ultimaClasificacion(): HasOne
     {
         return $this->hasOne(Clasificacion::class)->latestOfMany();

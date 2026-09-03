@@ -22,4 +22,9 @@ class Productor extends Model
     {
         return $this->hasMany(Lote::class);
     }
+
+    public function ventas(): HasMany
+    {
+        return $this->hasManyThrough(Venta::class, Lote::class);
+    }
 }

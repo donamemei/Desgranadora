@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductorController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\TipoMaizController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Ruta raíz ───────────────────────────────────────────────────────
@@ -114,5 +115,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/editar', [AlertaController::class, 'edit'])->name('edit');
         Route::put('/{id}', [AlertaController::class, 'update'])->name('update');
         Route::delete('/{id}', [AlertaController::class, 'destroy'])->name('destroy');
+    });
+
+    // Ventas
+    Route::prefix('ventas')->name('ventas.')->group(function () {
+        Route::get('/', [VentaController::class, 'index'])->name('index');
+        Route::get('/crear', [VentaController::class, 'create'])->name('create');
+        Route::post('/', [VentaController::class, 'store'])->name('store');
+        Route::get('/{id}/editar', [VentaController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [VentaController::class, 'update'])->name('update');
+        Route::delete('/{id}', [VentaController::class, 'destroy'])->name('destroy');
     });
 });
