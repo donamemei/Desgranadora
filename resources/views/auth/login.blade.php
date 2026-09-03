@@ -135,7 +135,7 @@
         </form>
 
         <p class="text-center text-muted small mt-4 mb-0">
-            Instituto Técnico — Proyecto Desgranadora 2024
+            Instituto Técnico — Proyecto Desgranadora 2026
         </p>
     </div>
 
