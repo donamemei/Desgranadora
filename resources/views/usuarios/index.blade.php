@@ -30,24 +30,24 @@
                         <td>
                             <div class="d-flex align-items-center gap-2">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center fw-500"
-                                     style="width:34px;height:34px;background:var(--bs-primary-bg-subtle);
+                                    style="width:34px;height:34px;background:var(--bs-primary-bg-subtle);
                                             color:var(--bs-primary-text-emphasis);font-size:13px;flex-shrink:0">
                                     {{ strtoupper(substr($u->name, 0, 1)) }}
                                 </div>
                                 <span class="fw-medium">{{ $u->name }}</span>
                                 @if($u->id === auth()->id())
-                                    <span class="badge bg-light text-muted border" style="font-size:10px">Tú</span>
+                                <span class="badge bg-light text-muted border" style="font-size:10px">Tú</span>
                                 @endif
                             </div>
                         </td>
                         <td class="text-muted small">{{ $u->email }}</td>
                         <td>
                             @php
-                                $colores = [
-                                    'administrador' => 'text-bg-primary',
-                                    'supervisor'    => 'text-bg-info',
-                                    'operador'      => 'text-bg-success',
-                                ];
+                            $colores = [
+                            'administrador' => 'text-bg-primary',
+                            'supervisor' => 'text-bg-info',
+                            'operador' => 'text-bg-success',
+                            ];
                             @endphp
                             <span class="badge {{ $colores[$u->rol] ?? 'text-bg-secondary' }}">
                                 {{ ucfirst($u->rol) }}
@@ -57,12 +57,12 @@
                         <td class="text-center">
                             <div class="btn-group btn-group-sm">
                                 <a href="{{ route('usuarios.editar', $u->id) }}"
-                                   class="btn btn-outline-primary" title="Editar">
+                                    class="btn btn-outline-primary" title="Editar">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 @if($u->id !== auth()->id())
                                 <form method="POST" action="{{ route('usuarios.destroy', $u->id) }}"
-                                      onsubmit="return confirm('¿Eliminar a {{ $u->name }}?')">
+                                    data-confirm-delete="¿Deseas eliminar al usuario {{ $u->name }}?">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger" title="Eliminar">
                                         <i class="bi bi-trash"></i>
@@ -85,7 +85,7 @@
         </div>
     </div>
     @if($usuarios->hasPages())
-        <div class="card-footer bg-white">{{ $usuarios->links() }}</div>
+    <div class="card-footer bg-white">{{ $usuarios->links() }}</div>
     @endif
 </div>
 

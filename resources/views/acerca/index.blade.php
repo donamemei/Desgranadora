@@ -13,17 +13,17 @@
             <div class="card-body p-4">
                 <div class="d-flex align-items-center gap-3 mb-4">
                     <div class="rounded-3 d-flex align-items-center justify-content-center"
-                         style="width:56px;height:56px;background:#0d6efd20">
+                        style="width:56px;height:56px;background:#0d6efd20">
                         <i class="bi bi-gear-wide-connected text-primary fs-3"></i>
                     </div>
                     <div>
                         <h5 class="fw-bold mb-0" style="font-size:15px">Sistema de Maquinaria para el Desgranado</h5>
-                        <div class="text-muted small">y Aprovechamiento de Residuos del Maíz</div>
+
                     </div>
                 </div>
 
                 <p class="small text-muted" style="line-height:1.7">
-                    Sistema integral que combina una máquina desgranadora eléctrica con sensores IoT y
+                    Sistema integral que combina una máquina desgranadora a motor con sensores IoT y
                     un software web de monitoreo en tiempo real. Permite registrar, visualizar y exportar
                     datos de producción (RPM, kg procesados, productividad) durante cada sesión de operación.
                 </p>
@@ -32,10 +32,10 @@
 
                 <div class="row g-3">
                     @foreach([
-                        ['bi-building','Instituto','Instituto Técnico — La Paz, Bolivia'],
-                        ['bi-calendar3','Año','2024'],
-                        ['bi-mortarboard','Carrera','Técnico Superior en Informática'],
-                        ['bi-cpu','Tecnologías','Laravel · Arduino · ESP8266 · MySQL · Chart.js'],
+                    ['bi-building','Instituto','Instituto Técnico "Federico Alvarez Plata"Cochabamba, Bolivia'],
+                    ['bi-calendar3','Año','2026'],
+                    ['bi-mortarboard','Carrera','Técnico en Sistemas Informáticos'],
+                    ['bi-cpu','Tecnologías','Laravel · Arduino · ESP32 · MySQL · Chart.js'],
                     ] as [$icon,$label,$valor])
                     <div class="col-6">
                         <div class="small text-muted mb-1">
@@ -59,13 +59,13 @@
             </div>
             <div class="card-body">
                 @foreach([
-                    ['I1','Integrante 1','Hardware y sensores',   'Diseño mecánico, construcción, Arduino',       '#cfe2ff','#052c65'],
-                    ['I2','Integrante 2','Software web',          'Laravel, dashboard, API REST, reportes',       '#d1e7dd','#0a3622'],
-                    ['I3','Integrante 3','Análisis y documentación','FODA, marco teórico, informe, presentación', '#fff3cd','#664d03'],
+                ['I1','Maita Rafael Daniel Alejandro','Hardware y sensores', 'Diseño mecánico, construcción, Arduino', '#cfe2ff','#052c65'],
+                ['I2','Ortega Sosa Donny David','Software web', 'Laravel, dashboard, API REST, reportes', '#d1e7dd','#0a3622'],
+                ['I3','Mamani Salas Igor German','Análisis y documentación','FODA, marco teórico, informe, presentación', '#fff3cd','#664d03'],
                 ] as [$ini,$nombre,$rol,$desc,$bg,$color])
                 <div class="d-flex gap-3 mb-4">
                     <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold flex-shrink-0"
-                         style="width:44px;height:44px;background:{{ $bg }};color:{{ $color }};font-size:13px">
+                        style="width:44px;height:44px;background:{{ $bg }};color:{{ $color }};font-size:13px">
                         {{ $ini }}
                     </div>
                     <div>
@@ -96,9 +96,9 @@
                         </div>
                     </div>
                     @foreach([
-                        ['Construir','Desarrollar la máquina desgranadora con sensores de RPM y peso integrados.'],
-                        ['Monitorear','Implementar el sistema web con dashboard en tiempo real y control de acceso por roles.'],
-                        ['Documentar','Generar reportes exportables en PDF y Excel con los datos de cada sesión de producción.'],
+                    ['Construir','Desarrollar la máquina desgranadora con sensores de RPM y peso integrados.'],
+                    ['Monitorear','Implementar el sistema web con dashboard en tiempo real y control de acceso por roles.'],
+                    ['Documentar','Generar reportes exportables en PDF y Excel con los datos de cada sesión de producción.'],
                     ] as [$titulo,$desc])
                     <div class="col-md-2-dot-6">
                         <div class="p-3 rounded-3 h-100" style="background:#19875410;border-left:3px solid #198754">

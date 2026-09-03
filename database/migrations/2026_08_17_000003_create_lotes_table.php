@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('lotes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('productor_id')->constrained('productores')->cascadeOnDelete();
+            $table->foreignId('tipo_maiz_id')->constrained('tipos_maiz')->cascadeOnDelete();
+            $table->string('sesion_id')->nullable();
+            $table->date('fecha_recepcion');
+            $table->decimal('cantidad_kg', 10, 2)->default(0);
+            $table->text('observaciones')->nullable();
+            $table->string('estado')->default('pendiente');
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('lotes');
+    }
+};

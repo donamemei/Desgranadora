@@ -31,6 +31,10 @@ class UsuarioController extends Controller
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'rol'      => 'required|in:administrador,supervisor,operador',
+        ], [
+            'password.required'  => 'La contraseña es obligatoria.',
+            'password.min'       => 'La contraseña debe tener al menos 8 caracteres.',
+            'password.confirmed' => 'Las contraseñas no coinciden.',
         ]);
 
         User::create([
@@ -41,7 +45,7 @@ class UsuarioController extends Controller
         ]);
 
         return redirect()->route('usuarios.index')
-                         ->with('success', 'Usuario creado correctamente.');
+            ->with('success', 'Usuario creado correctamente.');
     }
 
     // Formulario de edición
@@ -61,6 +65,9 @@ class UsuarioController extends Controller
             'email'    => ['required', 'email', Rule::unique('users')->ignore($id)],
             'password' => 'nullable|string|min:8|confirmed',
             'rol'      => 'required|in:administrador,supervisor,operador',
+        ], [
+            'password.min'       => 'La contraseña debe tener al menos 8 caracteres.',
+            'password.confirmed' => 'Las contraseñas no coinciden.',
         ]);
 
         $usuario->name  = $data['name'];
@@ -75,7 +82,7 @@ class UsuarioController extends Controller
         $usuario->save();
 
         return redirect()->route('usuarios.index')
-                         ->with('success', 'Usuario actualizado correctamente.');
+            ->with('success', 'Usuario actualizado correctamente.');
     }
 
     // Elimina usuario (no puede eliminarse a sí mismo)
@@ -90,6 +97,6 @@ class UsuarioController extends Controller
         $usuario->delete();
 
         return redirect()->route('usuarios.index')
-                         ->with('success', 'Usuario eliminado.');
+            ->with('success', 'Usuario eliminado.');
     }
 }

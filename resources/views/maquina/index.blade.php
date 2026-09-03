@@ -19,16 +19,18 @@
                 <table class="table table-sm mb-0">
                     <tbody>
                         @foreach([
-                            ['Tipo',              'Desgranadora eléctrica de maíz'],
-                            ['Motor',             '1/4 HP — 220V monofásico'],
-                            ['RPM del rotor',     '300 – 600 RPM (operación normal)'],
-                            ['RPM de alerta',     'Mayor a 800 RPM'],
-                            ['Capacidad',         '20 – 50 kg / hora'],
-                            ['Peso del equipo',   'Aprox. 15 kg'],
-                            ['Alimentación',      '220V — 50/60 Hz'],
-                            ['Sensores',          'Hall (RPM) + Celda de carga (peso)'],
-                            ['Microcontrolador',  'Arduino Uno + ESP8266 NodeMCU'],
-                            ['Comunicación',      'WiFi 2.4GHz — HTTP REST'],
+                        ['Tipo', 'Desgranadora eléctrica de maíz'],
+                        ['Motor', '2 HP — 1500 RPM'],
+                        ['Rotor', 'Acero inoxidable con cuchillas de corte'],
+                        ['Tolva', 'Acero galvanizado con capacidad de 10 kg'],
+                        ['RPM del rotor', '300 – 600 RPM (operación normal)'],
+                        ['RPM de alerta', 'Mayor a 800 RPM'],
+                        ['Capacidad', '20 – 50 kg / hora'],
+                        ['Peso del equipo', 'Aprox. 15 kg'],
+                        ['Alimentación', '220V — 50/60 Hz'],
+                        ['Sensores', 'Hall (RPM) + Celda de carga (peso)'],
+                        ['Microcontrolador', 'Esp32 con WiFi integrado'],
+                        ['Comunicación', 'WiFi 2.4GHz — HTTP REST'],
                         ] as [$key, $val])
                         <tr>
                             <td class="text-muted small fw-medium" style="width:45%">{{ $key }}</td>
@@ -82,10 +84,9 @@
             </div>
             <div class="card-body">
                 @foreach([
-                    ['Semanal',  'Limpiar residuos de grano del rotor y la tolva.'],
-                    ['Mensual',  'Verificar tensión de la correa y alineación de poleas.'],
-                    ['Mensual',  'Lubricar rodamientos con grasa industrial.'],
-                    ['Trimestral','Revisar conexiones eléctricas y estado del cableado.'],
+                ['Semanal', 'Limpiar residuos de grano del rotor y la tolva.'],
+                ['Mensual', 'Verificar tensión de la correa y alineación de poleas.'],
+                ['Mensual', 'Lubricar rodamientos con grasa industrial.'],
                 ] as [$freq, $tarea])
                 <div class="d-flex gap-3 mb-2">
                     <span class="badge bg-primary-subtle text-primary-emphasis" style="height:fit-content;white-space:nowrap">{{ $freq }}</span>

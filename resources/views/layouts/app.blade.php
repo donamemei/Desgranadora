@@ -10,14 +10,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #f3f8ff 0%, #eefaf6 45%, #fff9ee 100%);
             font-family: 'Segoe UI', sans-serif;
+            transition: background .3s ease;
         }
 
         .sidebar {
             min-height: calc(100vh - 56px);
-            background: #ffffff;
-            border-right: 1px solid #dee2e6;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(148, 163, 184, 0.18);
             padding-top: 1rem;
             display: flex;
             flex-direction: column;
@@ -25,29 +27,32 @@
             top: 56px;
             height: calc(100vh - 56px);
             overflow-y: auto;
+            box-shadow: inset -1px 0 0 rgba(15, 23, 42, 0.04);
         }
 
         .sidebar .nav-link {
             color: #495057;
-            padding: .55rem 1.2rem;
-            border-radius: 8px;
+            padding: .65rem 1.2rem;
+            border-radius: 12px;
             margin: 2px 8px;
             font-size: .88rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: background .12s;
+            transition: all .2s ease;
         }
 
         .sidebar .nav-link:hover {
-            background: #e9f0fb;
-            color: #0d6efd;
+            background: linear-gradient(135deg, #e0f2fe, #ecfeff);
+            color: #0f766e;
+            transform: translateX(2px);
         }
 
         .sidebar .nav-link.active {
-            background: #0d6efd;
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
             color: #ffffff;
-            font-weight: 500;
+            font-weight: 600;
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
         }
 
         .sidebar .nav-link i {
@@ -59,29 +64,96 @@
 
         .sidebar-section {
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: .07em;
-            color: #adb5bd;
-            padding: 10px 20px 4px;
+            letter-spacing: .09em;
+            color: #64748b;
+            padding: 12px 20px 6px;
             margin-top: 4px;
         }
 
         .sidebar-footer {
             margin-top: auto;
-            border-top: 1px solid #dee2e6;
-            padding: 12px 10px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 12px 14px;
+            background: rgba(248, 250, 252, 0.6);
         }
 
         .main-content {
             padding: 2rem;
+            animation: fadeInUp .35s ease;
         }
 
         .page-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #212529;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
             margin-bottom: 1.5rem;
+        }
+
+        .modern-card {
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            transition: transform .2s ease, box-shadow .2s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .modern-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+        }
+
+        .btn {
+            transition: all .2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9, #2563eb);
+            border: none;
+            box-shadow: 0 10px 22px rgba(37, 99, 235, 0.22);
+        }
+
+        .btn-outline-secondary {
+            border-radius: 50rem;
+        }
+
+        .form-control,
+        .form-select,
+        .form-check-input {
+            border-radius: 12px;
+            border-color: #dbe3ef;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus,
+        .form-check-input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 0.2rem rgba(96, 165, 250, 0.18);
+        }
+
+        .alert {
+            border-radius: 14px;
+            border: none;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
     {{-- PWA --}}
@@ -179,6 +251,36 @@
                             <i class="bi bi-clock-history"></i> Historial
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('productores.index') }}"
+                            class="nav-link {{ request()->routeIs('productores.*') ? 'active' : '' }}">
+                            <i class="bi bi-people-fill"></i> Productores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('tipos-maiz.index') }}"
+                            class="nav-link {{ request()->routeIs('tipos-maiz.*') ? 'active' : '' }}">
+                            <i class="bi bi-basket-fill"></i> Tipos de maíz
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('lotes.index') }}"
+                            class="nav-link {{ request()->routeIs('lotes.*') ? 'active' : '' }}">
+                            <i class="bi bi-box-seam"></i> Lotes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('clasificaciones.index') }}"
+                            class="nav-link {{ request()->routeIs('clasificaciones.*') ? 'active' : '' }}">
+                            <i class="bi bi-clipboard-check"></i> Clasificación
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('alertas.index') }}"
+                            class="nav-link {{ request()->routeIs('alertas.*') ? 'active' : '' }}">
+                            <i class="bi bi-bell"></i> Alertas
+                        </a>
+                    </li>
                 </ul>
 
                 {{-- Información --}}
@@ -239,7 +341,56 @@
         </div>
     </div>
 
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteTitle">
+                        <i class="bi bi-exclamation-triangle text-warning me-2"></i>Confirmar eliminación
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" id="confirmDeleteMessage"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">
+                        <i class="bi bi-trash me-1"></i>Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const deleteModalElement = document.getElementById('confirmDeleteModal');
+        const deleteModal = deleteModalElement ? new bootstrap.Modal(deleteModalElement) : null;
+        let formToDelete = null;
+
+        document.querySelectorAll('form[data-confirm-delete]').forEach(form => {
+            form.addEventListener('submit', event => {
+                if (formToDelete === form) return;
+
+                event.preventDefault();
+                formToDelete = form;
+                document.getElementById('confirmDeleteMessage').textContent = form.dataset.confirmDelete;
+                deleteModal.show();
+            });
+        });
+
+        document.getElementById('confirmDeleteButton')?.addEventListener('click', () => {
+            if (!formToDelete) return;
+
+            const form = formToDelete;
+            formToDelete = null;
+            deleteModal.hide();
+            form.submit();
+        });
+
+        deleteModalElement?.addEventListener('hidden.bs.modal', () => {
+            formToDelete = null;
+        });
+    </script>
     <script>
         function actualizarReloj() {
             const a = new Date();
